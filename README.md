@@ -66,6 +66,7 @@ personally hit its problem.
 pip install -e ".[dev]"
 python -m r2r.play boss        # Module 0: lose the bet
 pytest tests/test_module01.py  # red. start building.
+python -m r2r.progress         # the tower, floor by floor, as you build it
 ```
 
 Open [`modules/00-the-bet/README.md`](modules/00-the-bet/README.md) and

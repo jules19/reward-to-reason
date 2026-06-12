@@ -42,6 +42,10 @@ def score(game, agent_a, agent_b, n_games=100):
 class Ladder:
     """An Elo ladder for a set of named agents.
 
+    Plays a full round-robin, then fits ratings to ALL the results at
+    once (iterated Elo regression), so the final numbers don't depend on
+    match order the way naive sequential Elo does.
+
     >>> ladder = Ladder(TicTacToe())
     >>> ladder.add("random", RandomAgent(seed=0))
     >>> ladder.add("v1", my_agent)
@@ -49,27 +53,39 @@ class Ladder:
     >>> print(ladder.table())
     """
 
-    def __init__(self, game, k=16, base_elo=1000.0):
+    def __init__(self, game, base_elo=1000.0):
         self.game = game
-        self.k = k
         self.base_elo = base_elo
         self.agents = {}
         self.elo = {}
+        self.results = []   # (name_a, name_b, score_for_a)
 
     def add(self, name, agent):
         self.agents[name] = agent
         self.elo[name] = self.base_elo
 
-    def run(self, games_per_pair=50, rounds=2):
+    def run(self, games_per_pair=20, verbose=False):
         names = list(self.agents)
-        for _ in range(rounds):
-            for i, a in enumerate(names):
-                for b in names[i + 1:]:
-                    s = score(self.game, self.agents[a], self.agents[b], games_per_pair)
-                    expected = 1.0 / (1.0 + 10 ** ((self.elo[b] - self.elo[a]) / 400.0))
-                    delta = self.k * games_per_pair * (s - expected) / 10.0
-                    self.elo[a] += delta
-                    self.elo[b] -= delta
+        for i, a in enumerate(names):
+            for b in names[i + 1:]:
+                s = score(self.game, self.agents[a], self.agents[b], games_per_pair)
+                self.results.append((a, b, s))
+                if verbose:
+                    print(f"  {a} vs {b}: {winrate_bar(s)}")
+        self._fit()
+
+    def _fit(self, sweeps=400):
+        ratings = {name: 0.0 for name in self.agents}
+        k = 40.0
+        for sweep in range(sweeps):
+            for a, b, s in self.results:
+                expected = 1.0 / (1.0 + 10 ** ((ratings[b] - ratings[a]) / 400.0))
+                delta = k * (s - expected)
+                ratings[a] += delta
+                ratings[b] -= delta
+            k *= 0.99
+        mean = sum(ratings.values()) / len(ratings)
+        self.elo = {n: self.base_elo + r - mean for n, r in ratings.items()}
 
     def table(self):
         rows = sorted(self.elo.items(), key=lambda kv: -kv[1])

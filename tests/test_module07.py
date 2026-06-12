@@ -1,6 +1,8 @@
 """Module 7: The Brain. (The slowest test file — about a minute of
 training. Generalization has to be earned.)"""
 
+import pytest
+
 import random
 
 from r2r.course import load
@@ -53,8 +55,9 @@ def test_training_changes_the_weights():
     assert moved, "train_step must actually nudge the network"
 
 
+@pytest.mark.slow
 def test_the_brain_beats_the_wall():
-    """The table scored ~16% after 4000 episodes (Module 5). The brain
+    """The table scored ~18% after 4000 episodes (Module 5). The brain
     must crush that score with 600."""
     env = OpenWorld(size=16, seed=7)
     agent = make_agent(seed=0)
@@ -69,5 +72,5 @@ def test_the_brain_beats_the_wall():
     assert rate >= 0.65, (
         f"success on fresh situations was {rate:.0%}; the brain should "
         "generalize to at least 65% (a typical run reaches 95%+ — the "
-        "table managed 16% with 6x the experience)"
+        "table managed ~18% with 6x the experience)"
     )

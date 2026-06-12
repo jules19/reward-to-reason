@@ -132,7 +132,7 @@ if __name__ == "__main__":
                                  n_episodes=100)
         print(f"  after {ep:4d} episodes: success on fresh exams {rate:.0%}")
 
-    print("\nRecall the wall: the table scored ~16% after 4000 episodes.")
+    print("\nRecall the wall: the table scored ~18% after 4000 episodes.")
     print("The brain scores ~100% after 1200 — on situations it has never")
     print("seen — because it stopped memorizing answers and learned the idea.")
     print("\nThat is generalization. You just watched it happen.")

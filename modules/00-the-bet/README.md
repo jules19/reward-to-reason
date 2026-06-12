@@ -20,6 +20,15 @@ You should see **failures**. Good. Every red line is a thing you are
 about to build. This course is finished when they are all green and the
 machine described below exists because you typed it into existence.
 
+At any point, see the whole tower at once:
+
+```bash
+python -m r2r.progress
+```
+
+Right now it will show ten dark floors standing on one word. Come back
+to it whenever you finish a module and watch the lights come on.
+
 ## The fight
 
 Now play this:
@@ -78,8 +87,9 @@ breaks it.
 | **II. The Wall** | 5–7 | A brain: backprop, generalization | "Memory can't cover the world" |
 | **III. The Mind** | 8–10 | A mind: self-teaching, imagination, reason | "Learning can't outgrow its teacher" |
 
-Twelve modules. Each one ends with something *running* — and with a
-specific, demonstrated failure that makes the next module necessary.
+Ten building modules between two bookends. Each one ends with something
+*running* — and with a specific, demonstrated failure that makes the
+next module necessary.
 
 One rule, borrowed from Nand2Tetris, called the **Built-In Chip Rule**:
 the `r2r/` package contains polished versions of several things you will

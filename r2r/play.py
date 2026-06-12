@@ -83,8 +83,8 @@ def main():
     else:
         print("You lost.")
         if name == "boss":
-            print("\nRemember this feeling. In eleven modules, this machine")
-            print("will exist because you built it — and it will have taught")
+            print("\nRemember this feeling. Ten modules from now, this machine")
+            print("will exist because you built it — and yours will have taught")
             print("itself, starting from nothing but a reward signal.")
             print("Proceed to modules/01-the-coin.")
 

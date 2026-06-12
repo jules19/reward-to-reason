@@ -11,9 +11,12 @@ iterations. While it trains (or after), in another terminal:
     python modules/10-reason/train_connect4.py --ladder   # Elo: all your past selves
     python modules/10-reason/train_connect4.py --play     # face your creation
 
-Budget: with the default settings each iteration takes a couple of
-minutes on a plain laptop. An hour of training already beats casual
-humans; an evening of it beats the Module 0 boss at equal thinking time.
+Budget: with the default settings an iteration takes ~10-30 seconds on
+a plain laptop. After ~10 minutes (60 iterations) the engine already
+beats blind MCTS at EQUAL thinking budget — intuition paying rent.
+Catching the 3000-dream Module 0 boss takes real training and maybe
+some tuning of your own. That fight is the course's final exercise,
+and nobody is going to promise you the ending.
 """
 
 import argparse
@@ -99,13 +102,17 @@ def ladder():
     lad = Ladder(game)
     lad.add("random", RandomAgent(seed=0))
     lad.add("blind-mcts-80", MCTSAgent(n_simulations=80, seed=0))
-    keep = paths if len(paths) <= 6 else \
-        [paths[0]] + paths[len(paths) // 3::max(1, len(paths) // 5)][:4] + [paths[-1]]
-    for path in dict.fromkeys(keep):
+    if len(paths) <= 5:
+        keep = paths
+    else:  # first, last, and three evenly spaced between
+        idx = sorted({round(i * (len(paths) - 1) / 4) for i in range(5)})
+        keep = [paths[i] for i in idx]
+    for path in keep:
         engine = load_engine(path)
         lad.add(f"you@{path.stem}", engine.player(n_simulations=80, seed=1))
     print("Playing the Hall of Mirrors (a few minutes)...\n")
-    lad.run(games_per_pair=10, rounds=1)
+    lad.run(games_per_pair=20, verbose=True)
+    print()
     print(lad.table())
     print("\nEvery 'you@' line is a former self that today's engine outgrew.")
 

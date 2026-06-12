@@ -51,7 +51,7 @@ if __name__ == "__main__":
     from r2r.envs import OpenWorld
 
     env = OpenWorld(size=16, seed=7)
-    print(f"A 16x16 room where the goal moves every episode.")
+    print("A 16x16 room where the goal moves every episode.")
     print(f"Distinct situations: {count_states(env):,}\n")
 
     agent = QLearner(env.n_actions, seed=0)

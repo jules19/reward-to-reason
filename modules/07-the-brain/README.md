@@ -55,7 +55,7 @@ python modules/07-the-brain/brain.py   # the main event
 
 The demo returns to the scene of the crime: the same 16×16 moving-goal
 world, the same honest exam on **fresh** situations. The Module 5
-autopsy read: *table, 4,000 episodes, 16%.* Now watch the column climb:
+autopsy read: *table, 4,000 episodes, ~18%.* Now watch the column climb:
 
 ```
 after  300 episodes: success on fresh exams  92%

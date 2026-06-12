@@ -14,3 +14,8 @@ dev = ["pytest>=7"]
 
 [tool.setuptools.packages.find]
 include = ["r2r*"]
+
+[tool.pytest.ini_options]
+markers = [
+    "slow: training-heavy victory tests (skipped by `python -m r2r.progress`)",
+]

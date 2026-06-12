@@ -52,7 +52,7 @@ if __name__ == "__main__":
     QLearner = load(4, "q_learner").QLearner
 
     env = OpenWorld(size=16, seed=7)
-    print(f"A 16x16 room where the goal moves every episode.")
+    print("A 16x16 room where the goal moves every episode.")
     print(f"Distinct situations: {count_states(env):,}\n")
 
     agent = QLearner(env.n_actions, seed=0)

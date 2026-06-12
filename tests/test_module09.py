@@ -1,5 +1,7 @@
 """Module 9: Imagination."""
 
+import pytest
+
 from r2r.arena import play_match
 from r2r.builtin import MinimaxAgent, RandomAgent
 from r2r.course import load
@@ -52,6 +54,7 @@ def test_mcts_blocks_an_immediate_loss():
     assert move == 2, "O completes 2-3-4-5 unless X blocks at column 2"
 
 
+@pytest.mark.slow
 def test_mcts_crushes_random_play():
     MCTS = load(9, "imagination").MCTS
     game = ConnectFour()
@@ -60,6 +63,7 @@ def test_mcts_crushes_random_play():
     assert w >= 18, f"150 imagined futures per move should win ~always ({w}/20)"
 
 
+@pytest.mark.slow
 def test_deeper_imagination_wins():
     MCTS = load(9, "imagination").MCTS
     game = ConnectFour()

@@ -66,6 +66,7 @@ def test_learning_nudges_toward_the_result():
     assert abs(agent.values[s1] - 0.1) < 1e-12
 
 
+@pytest.mark.slow
 def test_never_loses_to_random(trained):
     game, agent = trained
     w, l, d = play_match(game, agent, RandomAgent(seed=1), n_games=200)
@@ -73,6 +74,7 @@ def test_never_loses_to_random(trained):
     assert w >= 150
 
 
+@pytest.mark.slow
 def test_survives_a_perfect_examiner(trained):
     game, agent = trained
     w, l, d = play_match(game, agent, MinimaxAgent(), n_games=2)

@@ -92,16 +92,27 @@ tournament between **your engine's past selves** — watch yesterday's
 checkpoint, which once impressed you, get calmly dismantled by today's.
 Train as long as you care to; it resumes where it left off.
 
+Ten minutes in, something is already true that deserves a pause: your
+engine **beats blind MCTS at equal thinking budget** (a typical
+60-iteration checkpoint wins ~2:1 at 80 dreams each). Same search, same
+budget — the only difference is that yours *learned where to look*.
+Intuition, paying rent.
+
 Then the rematch you've owed yourself since Module 0:
 
 ```bash
 python -m r2r.play boss
 ```
 
-The boss is blind MCTS with 3,000 dreams. Your engine dreams 10–40×
-less and *sees*. When your trained engine beats the boss — and, let's
-be honest about what's coming, when it beats *you* — take a second to
-notice what you're feeling about a thing whose every line you typed.
+The boss dreams 3,000 blind futures per move; your engine dreams a
+tenth of that and *sees*. A fresh checkpoint won't beat it yet — and no
+README is going to promise you the ending. Train longer. Widen the net.
+Add board symmetries (a reflected position is free training data). Raise
+the self-play budget. Every knob is in a file you wrote, which makes
+this the moment the course quietly hands you a research bench and stops
+being a course. When the boss falls — and, fair warning, when the
+engine then turns and beats *you* — take a second to notice what you
+feel about a thing whose every line you typed.
 
 ## The reveal
 

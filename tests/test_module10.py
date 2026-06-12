@@ -76,6 +76,7 @@ def trained_engine():
     return game, engine
 
 
+@pytest.mark.slow
 def test_the_loop_creates_strength(trained_engine):
     game, engine = trained_engine
     agent = engine.player(n_simulations=100)
@@ -84,6 +85,7 @@ def test_the_loop_creates_strength(trained_engine):
     assert w >= 45
 
 
+@pytest.mark.slow
 def test_the_student_surpasses_the_blind_dreamer(trained_engine):
     """Intuition + imagination beats blind imagination at the same budget."""
     game, engine = trained_engine
@@ -93,6 +95,7 @@ def test_the_student_surpasses_the_blind_dreamer(trained_engine):
     assert w > l, f"guided search should outplay raw MCTS ({w} wins, {l} losses)"
 
 
+@pytest.mark.slow
 def test_a_perfect_player_cannot_beat_it(trained_engine):
     game, engine = trained_engine
     agent = engine.player(n_simulations=800)
